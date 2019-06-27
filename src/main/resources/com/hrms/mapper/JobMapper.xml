@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hrms.mapper.JobMapper">
+    <sql id="table_name">
+        tbl_job
+    </sql>
+    <sql id="select_fields">
+        job_id , job_name, job_remark
+    </sql>
+    <resultMap id="jobResult" type="com.hrms.bean.Job">
+        <id column="job_id" property="jobId"></id>
+        <result column="job_name" property="jobName"></result>
+        <result column="job_remark" property="jobRemark"></result>
+    </resultMap>
+
+    <delete id="deletJobById" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+        tbl_job
+        WHERE
+        job_id=#{jobId}
+    </delete>
+
+    <update id="updateOneById" parameterType="com.hrms.bean.Job">
+        UPDATE
+        <include refid="table_name"/>
+        SET
+        job_name = #{job.jobName, jdbcType = INTEGER},
+        job_remark = #{job.jobRemark, jdbcType = VARCHAR},
+        WHERE
+        JOB_id = #{JOBId, jdbcType = INTEGER}
+    </update>
+</mapper>
